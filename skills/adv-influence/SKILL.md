@@ -148,7 +148,7 @@ Workflow({
 (`{workDir, status, advisorsAnswered, reportPath, claimLedger, verdictMeta}`). Прогресс — в `/workflows`.
 
 Советники, скептики и validator работают одним типом воркера — субагентом
-`advisors:advisor-opus-xhigh` (Opus, effort xhigh). Переопределить:
+`advisors:advisor-opus` (Opus, effort high). Переопределить:
 `workerOpts: { model: 'opus' }` в args.
 
 ## Phase C — WRITE
