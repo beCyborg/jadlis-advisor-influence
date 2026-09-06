@@ -42,7 +42,7 @@ description: |
 ```
 PLUGIN_ROOT = ${CLAUDE_PLUGIN_ROOT}
 MEMORY_DIR  = ${user_config.ADVISORS_MEMORY_DIR}
-OUTPUT_DIR  = {MEMORY_DIR}/Вердикты/Медийность
+OUTPUT_DIR  = {MEMORY_DIR}/Медийность
 PROFILE     = {MEMORY_DIR}/Профили/adv-influence.md
 RUN_LOG     = {MEMORY_DIR}/Журнал советов.md
 WORK_DIR    = {MEMORY_DIR}/_runs/influence-{QUERY_SLUG}
