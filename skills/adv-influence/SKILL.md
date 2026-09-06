@@ -9,7 +9,7 @@ allowed-tools:
   - AskUserQuestion
   - Workflow
 model: opus
-effort: xhigh
+effort: high
 description: |
   Совет 15 AI-советников: 14 маркетинговых/influence книг + тактический синтез 2026.
   Каждый советник анализирует запрос через призму одной книги, затем validator
