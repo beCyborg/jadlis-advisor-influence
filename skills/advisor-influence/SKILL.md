@@ -1,5 +1,5 @@
 ---
-name: adv-influence
+name: advisor-influence
 user-invocable: true
 argument-hint: "<ваш вопрос по маркетингу, влиянию или росту аудитории>"
 allowed-tools:
@@ -21,7 +21,7 @@ description: |
   Superfans (Flynn).
   Плюс 15-й советник «Тактика 2026» — не книга, а синтез исследований платформ
   (алгоритмы, воронка доверия, KPI; data_as_of 2026-07, стареет быстро).
-  Invoke via /advisors:adv-influence со своим вопросом.
+  Invoke via /advisor-influence со своим вопросом.
   English triggers: marketing advice, influence strategy, growth strategy, audience building,
   content strategy, lead generation, persuasion, branding, positioning, customer acquisition,
   viral marketing, social media strategy, book council, advisor council, marketing council.
@@ -41,7 +41,7 @@ description: |
 
 ```
 PLUGIN_ROOT = ${CLAUDE_PLUGIN_ROOT}
-MEMORY_DIR  = ${user_config.ADVISORS_MEMORY_DIR}
+MEMORY_DIR  = ${user_config.MEMORY_DIR}
 OUTPUT_DIR  = {MEMORY_DIR}/Медийность
 PROFILE     = {MEMORY_DIR}/Профили/adv-influence.md
 RUN_LOG     = {MEMORY_DIR}/Журнал советов.md
@@ -60,9 +60,9 @@ WORK_DIR    = {MEMORY_DIR}/_runs/influence-{QUERY_SLUG}
 ## Phase A.0 — гейт памяти (первым, каждый запуск)
 
 1. `MEMORY_DIR` пуст **или** в нём буквально видно `${user_config` → **остановиться**:
-   > Не задана папка памяти советов. Открой `/plugin` → advisors → настройки и укажи
-   > `ADVISORS_MEMORY_DIR` (например `~/advisors-memory`), либо переустанови плагин с
-   > `--config ADVISORS_MEMORY_DIR=<путь>`. Вердикты в текущую рабочую папку совет не пишет.
+   > Не задана папка памяти советов. Открой `/plugin` → advisor-influence → настройки и укажи
+   > `MEMORY_DIR` (например `~/advisors-memory`), либо переустанови плагин с
+   > `--config MEMORY_DIR=<путь>`. Вердикты в текущую рабочую папку совет не пишет.
 2. Путь начинается с `~/` → заменить `~` на `$HOME` **до любой записи**.
 3. Развернуть скелет — идемпотентно, существующие файлы не трогает; если папка создана
    впервые, сказать об этом и перечислить, что в ней появилось:
@@ -153,7 +153,7 @@ Workflow({
 (`{workDir, status, advisorsAnswered, reportPath, claimLedger, verdictMeta}`). Прогресс — в `/workflows`.
 
 Советники, скептики и validator работают одним типом воркера — субагентом
-`advisors:advisor-opus` (Opus, effort high). Переопределить:
+`advisor-influence:advisor-opus` (Opus, effort high). Переопределить:
 `workerOpts: { model: 'opus' }` в args.
 
 ## Phase C — WRITE
