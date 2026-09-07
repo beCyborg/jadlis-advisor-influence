@@ -1,2 +1,2 @@
-source jadlis-advisors-source advisors--v1.0.3-1-g53d2c80 53d2c80a2a76808f0b9d4ac511020dd51ddb5abe
-content-sha256 8bae45c4db4b1ae8c34a549cf3df7bbaac6c7ecd7109a5b97b205de0d6dff7bb
+source jadlis-advisors-source advisors--v1.0.3-3-g77be3ca 77be3ca18cf94d0cb123c514db60d84758c18662
+content-sha256 7e5a0819c5b9fae146c7615ee6df3eded06c1abe2192750f931d4eacee4d22e0
