@@ -8,7 +8,7 @@ allowed-tools:
   - Bash
   - AskUserQuestion
   - Workflow
-model: opus
+model: claude-opus-5-5
 effort: high
 description: |
   Совет 15 AI-советников: 14 маркетинговых/influence книг + тактический синтез 2026.
@@ -154,7 +154,7 @@ Workflow({
 
 Советники, скептики и validator работают одним типом воркера — субагентом
 `advisor-influence:advisor-opus` (Opus, effort high). Переопределить:
-`workerOpts: { model: 'opus' }` в args.
+`workerOpts: { model: 'claude-opus-5-5' }` в args.
 
 ## Phase C — WRITE
 
