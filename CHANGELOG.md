@@ -5,6 +5,22 @@
 
 ## [Unreleased]
 
+## [1.0.4] — 2026-09-22 — Effort по ролям / Effort by role
+
+### Для человека
+
+- Итоговый вердикт теперь пишет валидатор на повышенном уровне рассуждений `xhigh`; 15 советников, куратор и скептики остаются на `high`.
+- Кластеризатор уточняющих вопросов работает на `medium` — это механическая дедупликация.
+- Почему: исследование Opus 5.5 от 22.09.2026 — прирост `xhigh` измерен на итоговых документах (GDPval +128 Elo) и стоит немного, когда агент один в конце цепочки; на веерах он не окупается, поэтому они остаются на `high`.
+
+### For agents
+
+- Changed: `workflows/council-influence.js` — `validator` step: `effort: 'xhigh'` in the `agent()` options.
+- Changed: `workflows/council-question-harvest.js` — `question-clusterer` step: `effort: 'medium'` (mechanical dedup).
+- Unchanged: advisors, curator, skeptics (`high`), question askers (`low`).
+- Migration: none. The per-call `effort` overrides the worker frontmatter `effort: high` and is merged after a caller-supplied `workerOpts`, so it applies in the fallback path too.
+- Refs: Opus 5.5 study 2026-09-22 — `xhigh` gains are measured on final documents (GDPval-AA 1692 → 1820, +128 Elo) and cost little on a single agent at the end of the chain; fan-outs stay `high`.
+
 ## [1.0.3] — 2026-09-22 — Переход на Opus 5.5 / Switch to Opus 5.5
 
 ### Для человека
