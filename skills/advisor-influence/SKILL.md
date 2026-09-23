@@ -57,6 +57,15 @@ WORK_DIR    = {MEMORY_DIR}/_runs/influence-{QUERY_SLUG}
 `{MEMORY_DIR}`: подстановка `${CLAUDE_PLUGIN_ROOT}` и `${user_config.*}` в читаемые файлы не
 доходит. Подставляй значения сам; литеральный `{PLUGIN_ROOT}` в Read не отправляй.
 
+## Run contract
+
+- **Done when:** on `status: "ok"` the verdict is copied to `{OUTPUT_DIR}/{FILE_NAME}.md` (`test -s` passes) and shown in full with the ledger summary, `{WORK_DIR}` is removed, one line `- YYYY-MM-DD · adv-influence · {FILE_NAME} — …` is appended to `{RUN_LOG}` and `{PROFILE}` gets its sessions[] entry; on `status: "low-quorum"` the available answers are shown with the «Только {N}/15» warning and no verdict file is written.
+- **Keep going vs. stop:** a step inside this skill's scope that needs no input from the user — do it, don't announce it and stop. Never end a turn on a status line, a recap naming the next step, or an offer to continue («Сделать?», «Продолжить?»). Stop only when you cannot continue without the user, or before anything risky (delete, send outward, payments, secrets).
+- This skill's own confirm steps override "keep going": the Phase A.0 stop when `MEMORY_DIR` is unset, the question in Phase A.1 when `$ARGUMENTS` is empty, the mandatory interview in Phase A.5 (AskUserQuestion, up to 2 batches × 4; never re-ask what `## Profile` already holds), and the Phase C follow-up — the one closing offer this skill allows. Default-accept applies only where the skill already allows it (harvest empty or failed → the council runs without the interview).
+- **Subagent results:** the council's per-claim cross-verification (skeptics' ledger) is the check; before presenting, spot-check one SUPPORTED claim — its citation tag exists in that lens's `references/`.
+- **Progress file:** a run longer than 10 steps, or one with user answers between steps (the interview always adds them), keeps a `- [ ]` checklist in `{WORK_DIR}/progress.md`, ticked as it goes; after a pause or context compaction, re-read it and continue from the first unticked item. It goes away with `{WORK_DIR}` in Phase C and is not an advisor answer in the low-quorum listing.
+- **Final report:** result (verdict + path) → «Не удалось подтвердить» (what, and where it was looked for) → **От тебя:** on its own line, only when the user must do or decide something.
+
 ## Phase A.0 — гейт памяти (первым, каждый запуск)
 
 1. `MEMORY_DIR` пуст **или** в нём буквально видно `${user_config` → **остановиться**:

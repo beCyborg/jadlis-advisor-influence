@@ -5,6 +5,19 @@
 
 ## [Unreleased]
 
+## [1.0.5] — 2026-09-23 — Контракт прогона / Run contract
+
+### Для человека
+
+- В скилл добавлен короткий «контракт прогона»: прогон закончен, когда вердикт лежит в папке `Медийность`, показан целиком, а в журнал советов дописана строка.
+- Совет останавливается только там, где нужен ваш ответ (интервью, пустой запрос, не задана папка памяти), и не заканчивает ход вопросом «Продолжить?».
+
+### For agents
+
+- Added: `skills/advisor-influence/SKILL.md` — `## Run contract` before `## Phase A.0`: Done when (verdict in `{OUTPUT_DIR}`, `{WORK_DIR}` removed, journal line `adv-influence`, profile sessions[]; low-quorum → no file), keep-going rules, own confirm steps (A.0, A.1, A.5 interview, Phase C follow-up), ledger as the subagent check + one SUPPORTED spot-check, `{WORK_DIR}/progress.md`, final report shape.
+- Migration: none.
+- Refs: Anthropic guide «Getting the most out of Opus 5.5» (adopted 2026-09-23) — no requests to show reasoning; every skill states what "done" means and when to stop.
+
 ## [1.0.4] — 2026-09-22 — Effort по ролям / Effort by role
 
 ### Для человека
