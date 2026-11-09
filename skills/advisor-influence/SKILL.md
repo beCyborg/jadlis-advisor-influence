@@ -8,8 +8,6 @@ allowed-tools:
   - Bash
   - AskUserQuestion
   - Workflow
-model: claude-opus-5-5
-effort: high
 description: |
   Совет 15 AI-советников: 14 маркетинговых/influence книг + тактический синтез 2026.
   Каждый советник анализирует запрос через призму одной книги, затем validator
@@ -147,6 +145,14 @@ Phase A (INTAKE, главная сессия) → Phase B (Workflow council-infl
 
 ## Phase B — INVOKE
 
+**Финальный агент (личный файл).** Перед запуском движка выполни
+`python3 "${CLAUDE_PLUGIN_ROOT}/scripts/final-agent.py"` и возьми поле `finalOpts` как `FINAL_OPTS`
+(`{model, effort}` или `null`). Файл `~/.claude/skills/_shared/final-agent.json` необязательный и личный;
+`null` → финальный агент движка на умолчании (Opus 5.5 · xhigh). Скажи одной строкой: «Финальный агент:
+claude-fable-5-2 · high (final-agent.json)» или «Финальный агент: по умолчанию, Opus 5.5 · xhigh
+(final-agent.json: <reason>)». `FINAL_OPTS` уходит в args каждого движка ниже, кроме
+`council-question-harvest.js`; пустой ответ на нём — один повтор на умолчании внутри движка.
+
 ```
 Workflow({
   scriptPath: "${CLAUDE_PLUGIN_ROOT}/workflows/council-influence.js",
@@ -156,7 +162,8 @@ Workflow({
     advisors: <массив {slug, book, author, prefix, skillPath} из Phase A>,
     quorum: 10,
     workDir: WORK_DIR,
-    pluginRoot: PLUGIN_ROOT      // ${CLAUDE_PLUGIN_ROOT} в JS НЕ подставляется — передаём значением
+    pluginRoot: PLUGIN_ROOT,     // ${CLAUDE_PLUGIN_ROOT} в JS НЕ подставляется — передаём значением
+    finalOpts: FINAL_OPTS        // из final-agent.py или null — не выдумывай
   }
 })
 ```
@@ -165,7 +172,7 @@ Workflow({
 (`{workDir, status, advisorsAnswered, reportPath, claimLedger, verdictMeta}`). Прогресс — в `/workflows`.
 
 Советники, скептики и validator работают одним типом воркера — субагентом
-`advisor-influence:advisor-opus` (Opus, effort high). Переопределить:
+`advisor-influence:advisor-opus` (Opus, effort high; validator — xhigh, или модель и effort из `FINAL_OPTS`). Переопределить:
 `workerOpts: { model: 'claude-opus-5-5' }` в args.
 
 ## Phase C — WRITE
